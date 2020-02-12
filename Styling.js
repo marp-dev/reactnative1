@@ -5,7 +5,7 @@ export default StyleSheet.create({
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center',
-      paddingTop: 10,
+      paddingTop: 30,
       paddingBottom: 10,
       paddingLeft: '5%',
       paddingRight: '5%'
@@ -17,10 +17,15 @@ export default StyleSheet.create({
       alignItems:'center'
     },
     input: {
-      padding:5,
+      paddingLeft:5,
+      paddingRight:5,
+      height:35,
       marginRight:5,
       marginLeft:5,
-      flexGrow:3
+      flexGrow:3,
+      borderWidth:1,
+      borderColor:'#333',
+      borderRadius: 4
     },
     button: {
       padding:5,
