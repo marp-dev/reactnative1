@@ -32,6 +32,35 @@ export default StyleSheet.create({
       marginRight:5,
       marginLeft:5,
       flexGrow:1
+    },
+    todolist: {
+      width:'100%'
+    },
+    todoItem: {
+      flexDirection: 'row',
+      marginTop: 10,
+      width: '100%',
+      height: 40,
+      padding: '10 20',
+      borderRadius: 10,
+      //justifyContent:'stretch',
+      alignItems:'center',
+    },
+    todoDescription: {
+      flexGrow:6,
+      textAlign:'center'
+    },
+    todoActions: {
+      flexGrow:1,
+      paddingRight: 10,
+      flexDirection: 'row',
+      justifyContent:'flex-end',
+    },
+    done: {
+      backgroundColor: 'green'
+    },
+    notdone: {
+      backgroundColor: 'red'
     }
   });
   
