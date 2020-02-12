@@ -9,13 +9,22 @@ const AddTodo = function(props){
   const TextChanged = (text) => {
     setInput(text);
   };
+  const KeyPressed = (event) => {
+    if(event.key == 'Enter'){
+      Pressed();
+    }
+  };
   const Pressed = () => {
     props.AddTodoItem(input);
     setInput('');
   };
   return (
     <View style={styles.fieldset}>
-      <TextInput style={styles.input} onChangeText={TextChanged} value={input}/>
+      <TextInput
+        style={styles.input}
+        onChangeText={TextChanged}
+        onKeyPress={KeyPressed}
+        value={input}/>
       <Button title="ADD" onPress={Pressed}/>
     </View>
   );
