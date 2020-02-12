@@ -8,7 +8,9 @@ const TodoList = function(props){
   let count = 0;
 
   const RenderItem = function(item){
-    let response = <Text key={count}>{item}</Text>;
+    let response = (
+        <Text key={count}>{item}</Text>
+    );
     count +=1;
     return response;
   };
@@ -22,7 +24,7 @@ const TodoList = function(props){
 
 const mapStateToProps = (state, props) => {
     return {
-        list: state
+        list: state.list
     };
 };
 export default connect(mapStateToProps)(TodoList);

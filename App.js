@@ -7,14 +7,8 @@ import { Text, View, TextInput, Button } from 'react-native';
 import AddTodo from './AddTodo';
 import TodoList from './TodoList';
 import styles from './Styling';
+import reducers from './reducers';
 
-const reducers = (state = [], action) => {
-  if(action.type=='ADD_TODO'){
-    return [...state, action.payload];
-  }else{
-    return state;
-  }
-};
 const store = createStore(reducers);
 
 export default function App() {
