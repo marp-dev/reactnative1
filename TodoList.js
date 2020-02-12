@@ -5,21 +5,12 @@ import _ from 'lodash';
 
 const TodoList = function(props){
 
-  let count = 0;
-
-  const RenderItem = function(item){
-    let response = (
-        <Text key={count}>{item}</Text>
-    );
-    count +=1;
-    return response;
-  };
-
   return (
     <View>
-        {_.map(props.list, RenderItem)}
+        {_.map(props.list, (item) => <Text key={item.id}>{item.id}|{item.name}; {item.done?'done':'not done yet'}</Text> )}
     </View>
   );
+
 };
 
 const mapStateToProps = (state, props) => {
