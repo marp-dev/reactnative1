@@ -20,10 +20,7 @@ export default StyleSheet.create({
       padding:5,
       marginRight:5,
       marginLeft:5,
-      flexGrow:3,
-      borderWidth:1,
-      borderColor:'#000s',
-      borderStyle: 'solid'
+      flexGrow:3
     },
     button: {
       padding:5,
