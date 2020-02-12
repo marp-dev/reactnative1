@@ -30,13 +30,7 @@ const AddTodo = function(props){
   );
 };
 
-const mapStateToProps = (state, props) => {
-  return {
-    state: state
-  };
-};
-
-export default connect(mapStateToProps, {
+export default connect(null, {
     AddTodoItem
 })(AddTodo);
   
