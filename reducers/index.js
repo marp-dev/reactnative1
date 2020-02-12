@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
-import _ from 'lodash';
+import {generateID} from '../utils';
 
 const todos = (state = [], action) => {
   if(action.type=='ADD_TODO'){
     let todo = {
-      id: _.uniqueId('todo_'),
+      id: generateID('todo_'),
       name: action.payload,
       done: false
     };
