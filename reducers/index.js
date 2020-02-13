@@ -23,6 +23,8 @@ const todos = (state = [], action) => {
         return response;
       }else return todo;
     });
+  }else if(action.type == 'DELETE_TODO'){
+    return _.filter(state, (todo) => todo.id != action.payload);    
   }else{
     return state;
   }

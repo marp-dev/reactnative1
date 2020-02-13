@@ -20,3 +20,10 @@ export const UpdateTodo = function({id, name}){
         }
     }
 }
+
+export const DeleteTodo = function(id){
+    return {
+        type: 'DELETE_TODO',
+        payload: id
+    }
+}
