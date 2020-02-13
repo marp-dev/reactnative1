@@ -1,45 +1,23 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 import styles from './Styling';
-
-const Todo = function(props){
-  let todoItem;
-  if(props.data.done){
-    todoItem = StyleSheet.flatten([styles.todoItem, styles.done]);
-  }else{
-    todoItem = StyleSheet.flatten([styles.todoItem, styles.notdone]);
-  }
-  return (
-    <View style={todoItem}>
-      <Text
-        style={styles.todoDescription}
-        data-id={props.data.id}
-        data-name={props.data.name}>
-          {props.data.name}
-      </Text>
-      <View style={styles.todoActions}>
-        <View style={{marginRight:5}}><Button title="mark as done" onPress={()=>null}/></View>
-        <Button title="remove" onPress={()=>null}/>
-      </View>
-    </View>
-  );
-}
+import Todo from './TodoItem';
 
 const TodoList = function(props){
-
+  console.log(props.list);
   return (
     <View style={styles.todolist}>
-        {_.map(props.list, (item) => <Todo key={item.id} data={item} /> )}
+        {_.map(props.list, (item) => <Todo key={item.id} {...item} /> )}
     </View>
   );
 
 };
 
 const mapStateToProps = (state, props) => {
-    return {
-        list: state.list
-    };
+  return {
+    list: state.list
+  };
 };
 export default connect(mapStateToProps)(TodoList);

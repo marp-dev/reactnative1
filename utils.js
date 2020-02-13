@@ -37,3 +37,7 @@ export const generateID = function(prefix = '', length = 10){
     }
     return prefix+ID;
 }
+
+export const timestamp = function(){
+    return Math.floor(Date.now() /1000);
+}
