@@ -1,15 +1,17 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, FlatList } from 'react-native';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 import styles from './Styling';
 import Todo from './TodoItem';
 
 const TodoList = function(props){
-  console.log(props.list);
   return (
     <View style={styles.todolist}>
-        {_.map(props.list, (item) => <Todo key={item.id} {...item} /> )}
+      <FlatList
+        data={props.list}
+        renderItem={(item) => <Todo {...item} />}
+        keyExtractor={(item) => item.id}/>
     </View>
   );
 
