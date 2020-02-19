@@ -5,15 +5,22 @@ import { View } from 'react-native';
 import AddTodo from './AddTodo';
 import TodoList from './TodoList';
 import styles from './Styling';
-import store from './Storage';
+import {store, load} from './Storage';
 
-export default function App() {
+const App = (props) => {
+  load();
+  return (
+    <View style={styles.container}>
+      <AddTodo/>
+      <TodoList/>
+    </View>
+  );
+}
+
+export default () => {
   return (
     <Provider store={store}>
-      <View style={styles.container}>
-        <AddTodo/>
-        <TodoList/>
-      </View>
+      <App/>
     </Provider>
   );
 }
