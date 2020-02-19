@@ -9,10 +9,7 @@ const todos = (state = [], action) => {
   }else if(action.type=='ADD_TODO'){
     return [...state, action.payload];
   }else if(action.type == 'CHANGE_STATUS'){
-    console.log('change status');
-    console.log(`action.payload: ${action.payload}`);
     return _.map(state, (todo) => {
-      console.log(todo);
       if(todo.id == action.payload){
         let response = {...todo}
         response.done = !response.done;

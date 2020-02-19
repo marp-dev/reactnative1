@@ -46,6 +46,12 @@ export default StyleSheet.create({
       //justifyContent:'stretch',
       alignItems:'center',
     },
+    todoItemContainer: {
+      flexDirection: 'row',
+      width: '100%',
+      height: 40,
+      alignItems:'center',
+    },
     todoDescription: {
       flexGrow:6,
       textAlign:'center'
@@ -61,6 +67,11 @@ export default StyleSheet.create({
     },
     notdone: {
       backgroundColor: 'red'
+    },
+    editingTodo: {
+      backgroundColor: 'white',
+      borderWidth:1,
+      borderColor:'#333'
     }
   });
   
