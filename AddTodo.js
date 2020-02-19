@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import { Text, View, TextInput, Button } from 'react-native';
+import { View, TextInput, Button } from 'react-native';
 import styles from './Styling';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {AddTodoItem} from './actions';
 
 const AddTodo = function(props){
   const [input, setInput] = useState('');
+  const dispatch = useDispatch();
   const TextChanged = (text) => {
     setInput(text);
   };
@@ -15,7 +16,7 @@ const AddTodo = function(props){
     }
   };
   const Pressed = () => {
-    props.AddTodoItem(input);
+    dispatch(AddTodoItem(input));
     setInput('');
   };
   return (
@@ -30,7 +31,5 @@ const AddTodo = function(props){
   );
 };
 
-export default connect(null, {
-    AddTodoItem
-})(AddTodo);
+export default AddTodo;
   
