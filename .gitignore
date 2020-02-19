@@ -12,3 +12,6 @@ web-report/
 
 # macOS
 .DS_Store
+
+#ignoring database file
+db.json
