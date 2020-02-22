@@ -72,6 +72,9 @@ export default StyleSheet.create({
       backgroundColor: 'white',
       borderWidth:1,
       borderColor:'#333'
+    },
+    noSelect: {
+      userSelect: 'none'
     }
   });
   

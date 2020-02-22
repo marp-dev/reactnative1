@@ -1,14 +1,17 @@
 import React, {useState, useRef} from 'react';
-import { TouchableOpacity, StyleSheet, View, TextInput, Button } from 'react-native';
+import { Animated, TouchableWithoutFeedback, StyleSheet, TextInput } from 'react-native';
 import {ChangeStatus, DeleteTodo, UpdateTodo} from './actions';
 import styles from './Styling';
 import {useDispatch} from 'react-redux';
+//from https://www.npmjs.com/package/react-native-swipe-gestures
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 const Todo = function(props){
   const nameInput = useRef();
 
   const dispatch = useDispatch();
   const [name, setName] = useState(props.name);
+  const [archived, setArchived] = useState(props.archived);
 
   const [editing, setEdit] = useState(false);
   const EditMode = (newStatus) => {
@@ -18,7 +21,23 @@ const Todo = function(props){
     }else if(newStatus === false && editing === true){
       setEdit(false);
       if(nameInput.current.isFocused()) nameInput.current.blur();
-      dispatch(UpdateTodo({id:props.id, name:name}));
+      dispatch(UpdateTodo({...props, name}));
+    }
+  }
+
+  const [position] = useState(new Animated.Value(0))
+
+  //styling
+  let todoItem, todoDescription;
+  if(editing){
+    todoItem = StyleSheet.flatten([styles.todoItem, styles.editingTodo]);
+    todoDescription = styles.todoDescription;
+  }else{
+    todoDescription = StyleSheet.flatten([styles.todoDescription, styles.noSelect]);
+    if(props.done){
+      todoItem = StyleSheet.flatten([styles.todoItemContainer, styles.todoItem, styles.done]);
+    }else{
+      todoItem = StyleSheet.flatten([styles.todoItemContainer, styles.todoItem, styles.notdone]);
     }
   }
 
@@ -31,41 +50,51 @@ const Todo = function(props){
   const Pressed = () => {
     if(!editing) dispatch(ChangeStatus(props.id));
   };
-  const nameChanged = (text)=>{
+  const NameChanged = (text)=>{
     setName(text);
   };
-
-  //styling
-  let todoItem;
-  if(editing){
-    todoItem = StyleSheet.flatten([styles.todoItem, styles.editingTodo]);
-  }else if(props.done){
-    todoItem = StyleSheet.flatten([styles.todoItem, styles.done]);
-  }else{
-    todoItem = StyleSheet.flatten([styles.todoItem, styles.notdone]);
-  }
+  const SwipedLeft = (gestureState) => {
+    Animated.timing(position, {
+      toValue: 100,
+      duration: 500
+    }).start();
+  };
+  const AnimationCallback = (obj) => {
+    if(obj.value == 100 && !archived){
+      setArchived(true);
+      dispatch(UpdateTodo({...props, archived: true}));
+    }
+  };
+  position.addListener(AnimationCallback);
 
   return (
-    <TouchableOpacity
-      style={todoItem}
-      onPress={Pressed}
-      onLongPress={() => EditMode(true)}>
-      <View style={styles.todoItemContainer}>
-        <TextInput
-          ref={nameInput}
-          style={styles.todoDescription}
-          editable={editing}
-          onChangeText={nameChanged}
-          onKeyPress={TextEnter}
-          onBlur={() => EditMode(false)}
-          value={name}/>
-        <View style={styles.todoActions}>
-          <Button
-            title="remove"
-            onPress={() => dispatch(DeleteTodo(props.id))}/>
-        </View>
-      </View>
-    </TouchableOpacity>
+    <GestureRecognizer
+      onSwipeLeft={SwipedLeft}>
+      <TouchableWithoutFeedback
+        onPress={Pressed}
+        onLongPress={() => EditMode(true)}>
+        <Animated.View style={{
+          ...todoItem,
+          marginLeft: position.interpolate({
+            inputRange: [0, 100],
+            outputRange: ['0%', '-100%']
+          }),
+          opacity: position.interpolate({
+            inputRange: [0, 100],
+            outputRange: [1, 0]
+          })
+        }}>
+          <TextInput
+            ref={nameInput}
+            style={todoDescription}
+            editable={editing}
+            onChangeText={NameChanged}
+            onKeyPress={TextEnter}
+            onBlur={() => EditMode(false)}
+            value={name}/>
+        </Animated.View>
+      </TouchableWithoutFeedback>
+    </GestureRecognizer>
   );
 }
 

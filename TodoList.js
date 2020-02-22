@@ -6,7 +6,7 @@ import styles from './Styling';
 import Todo from './TodoItem';
 
 const TodoList = function(props){
-  const todos = useSelector((state) => state.list);
+  const todos = useSelector((state) => _.filter(state.list, (todo)=>todo.archived === false));
   return (
     <View style={styles.todolist}>
       <FlatList

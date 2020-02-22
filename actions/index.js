@@ -34,16 +34,18 @@ export const AddTodoItem = function(name){
     };
 }
 
+const getTodo = (list, id) => _.filter(list, (item) => item.id == id)[0];
+
 const update = (todo, callback, errorcallback) => {
     ajax
-    .put(`/todos/${todo.id}`, todo)
+    .patch(`/todos/${todo.id}`, todo)
     .then((response) => callback(response))
     .catch((error) => errorcallback(error));
 };
 
 export const ChangeStatus = function(id){
     return (dispatch, getState) => {
-        const todo = _.filter(getState().list, (item) => item.id == id)[0];
+        const todo = getTodo(getState().list, id);
         update(
             {...todo, ...{done:!todo.done} },
             (res)=>dispatch({type:'CHANGE_STATUS',payload: id}),
@@ -52,11 +54,11 @@ export const ChangeStatus = function(id){
     };
 }
 
-export const UpdateTodo = function({id, name}){
+export const UpdateTodo = function({id, name, archived}){
     return (dispatch, getState) => {
-        const todo = _.filter(getState().list, (item) => item.id == id)[0];
+        const todo = getTodo(getState().list, id);
         update(
-            {...todo, ...{name} },
+            {...todo, ...{name, archived} },
             (res)=>{
             dispatch({
                 type: 'UPDATE_TODO',
