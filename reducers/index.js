@@ -17,6 +17,12 @@ const todos = (state = [], action) => {
         return response;
       }else return todo;
     });
+  }else if(action.type == 'UPDATE_TODO'){
+    return _.map(state, (todo) => {
+      if(todo.id == action.payload.id){
+        return {...todo, ...action.payload};
+      }else return todo;
+    });
   }else if(action.type == 'DELETE_TODO'){
     return _.filter(state, (todo) => todo.id != action.payload);    
   }else{
@@ -27,6 +33,7 @@ const todos = (state = [], action) => {
 const lastUpdate = (state = false, action) => {
   switch(action.type){
     case 'ADD_TODO':
+    case 'UPDATE_TODO':
     case 'DELETE_TODO':
     case 'CHANGE_STATUS':
       return timestamp();

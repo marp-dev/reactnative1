@@ -63,7 +63,7 @@ export const UpdateTodo = function({id, name, archived}){
             dispatch({
                 type: 'UPDATE_TODO',
                 payload: {
-                    id, name
+                    id, name, archived
                 }
             });
         }, (error)=>{
