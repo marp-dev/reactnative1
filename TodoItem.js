@@ -3,6 +3,7 @@ import { Animated, TouchableWithoutFeedback, StyleSheet, TextInput } from 'react
 import {ChangeStatus, DeleteTodo, UpdateTodo} from './actions';
 import styles from './Styling';
 import {useDispatch} from 'react-redux';
+import AnimationUtils from './animation-utils';
 //from https://www.npmjs.com/package/react-native-swipe-gestures
 import GestureRecognizer from 'react-native-swipe-gestures';
 
@@ -25,7 +26,6 @@ const Todo = function(props){
     }
   }
 
-  const [position] = useState(new Animated.Value(0))
 
   //styling
   let todoItem, todoDescription;
@@ -41,6 +41,9 @@ const Todo = function(props){
     }
   }
 
+  //animation
+  const [animatedObj, animations] = AnimationUtils();
+
   //events
   const TextEnter = (event) => {
     if(event.key == 'Enter'){
@@ -54,18 +57,13 @@ const Todo = function(props){
     setName(text);
   };
   const SwipedLeft = (gestureState) => {
-    Animated.timing(position, {
-      toValue: 100,
-      duration: 500
-    }).start();
+    animations.hideToLeft(() => {
+      if(!archived){
+        setArchived(true);
+        dispatch(UpdateTodo({...props, archived: true}));
+      }
+    });
   };
-  const AnimationCallback = (obj) => {
-    if(obj.value == 100 && !archived){
-      setArchived(true);
-      dispatch(UpdateTodo({...props, archived: true}));
-    }
-  };
-  position.addListener(AnimationCallback);
 
   return (
     <GestureRecognizer
@@ -75,14 +73,7 @@ const Todo = function(props){
         onLongPress={() => EditMode(true)}>
         <Animated.View style={{
           ...todoItem,
-          marginLeft: position.interpolate({
-            inputRange: [0, 100],
-            outputRange: ['0%', '-100%']
-          }),
-          opacity: position.interpolate({
-            inputRange: [0, 100],
-            outputRange: [1, 0]
-          })
+          ...animatedObj.styles
         }}>
           <TextInput
             ref={nameInput}
