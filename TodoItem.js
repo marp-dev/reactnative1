@@ -8,11 +8,12 @@ import AnimationUtils from './animation-utils';
 import GestureRecognizer from 'react-native-swipe-gestures';
 
 const Todo = function(props){
+  const data = props.data;
   const nameInput = useRef();
 
   const dispatch = useDispatch();
-  const [name, setName] = useState(props.name);
-  const [archived, setArchived] = useState(props.archived);
+  const [name, setName] = useState(data.name);
+  const [archived, setArchived] = useState(data.archived);
 
   const [editing, setEdit] = useState(false);
   const EditMode = (newStatus) => {
@@ -22,9 +23,18 @@ const Todo = function(props){
     }else if(newStatus === false && editing === true){
       setEdit(false);
       if(nameInput.current.isFocused()) nameInput.current.blur();
-      dispatch(UpdateTodo({...props, name}));
+      dispatch(UpdateTodo({...data, name}));
     }
   }
+  const archiveTodo = () => {
+    if(!archived){
+      setArchived(true);
+      dispatch(UpdateTodo({...data, archived: true}));
+    }
+  };
+  const deleteTodo = () => {
+    dispatch(DeleteTodo(data.id));
+  };
 
 
   //styling
@@ -34,7 +44,7 @@ const Todo = function(props){
     todoDescription = styles.todoDescription;
   }else{
     todoDescription = StyleSheet.flatten([styles.todoDescription, styles.noSelect]);
-    if(props.done){
+    if(data.done){
       todoItem = StyleSheet.flatten([styles.todoItemContainer, styles.todoItem, styles.done]);
     }else{
       todoItem = StyleSheet.flatten([styles.todoItemContainer, styles.todoItem, styles.notdone]);
@@ -51,18 +61,17 @@ const Todo = function(props){
     }
   };
   const Pressed = () => {
-    if(!editing) dispatch(ChangeStatus(props.id));
+    if(!editing) dispatch(ChangeStatus(data.id));
   };
   const NameChanged = (text)=>{
     setName(text);
   };
   const SwipedLeft = (gestureState) => {
-    animations.hideToLeft(() => {
-      if(!archived){
-        setArchived(true);
-        dispatch(UpdateTodo({...props, archived: true}));
-      }
-    });
+    if(props.onSwipeLeft){
+      animations.hideToLeft(() => {
+        props.onSwipeLeft(archiveTodo, deleteTodo);
+      });
+    }
   };
 
   return (
