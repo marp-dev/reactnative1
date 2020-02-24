@@ -2,13 +2,32 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     container: {
+      zIndex: -1,
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center',
-      paddingTop: 30,
+      paddingTop: 20,
       paddingBottom: 10,
       paddingLeft: '5%',
       paddingRight: '5%'
+    },
+    relative: {
+      position: 'relative'
+    },
+    dFlex: {
+      display: 'flex'
+    },
+    menu: {
+      display: 'none',
+      position: 'absolute',
+      top: '100%',
+      right: 0,
+      width: '100%',
+      minHeight: 50,
+      backgroundColor: 'white'
+    },
+    menuZIndex: {
+      zIndex: 10
     },
     fieldset: {
       flexDirection: 'row',

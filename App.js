@@ -1,7 +1,8 @@
 
 import React from 'react';
 import {Provider} from 'react-redux';
-import { View } from 'react-native';
+import {Container} from 'native-base';
+import Header from './header';
 import AddTodo from './AddTodo';
 import TodoList from './TodoList';
 import styles from './Styling';
@@ -10,10 +11,13 @@ import {store, load} from './Storage';
 const App = (props) => {
   load();
   return (
-    <View style={styles.container}>
-      <AddTodo/>
-      <TodoList/>
-    </View>
+    <Container>
+      <Header/>
+      <Container style={styles.container}>
+        <AddTodo/>
+        <TodoList/>
+      </Container>
+    </Container>
   );
 }
 
