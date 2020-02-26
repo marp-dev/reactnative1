@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     container: {
@@ -93,7 +93,10 @@ export default StyleSheet.create({
       borderColor:'#333'
     },
     noSelect: {
-      userSelect: 'none'
+      ...Platform.select({
+        android: { },
+        web: { userSelect: 'none' }
+      })
     }
   });
   
