@@ -118,3 +118,10 @@ export const LoadFromServer = function(){
         });
     };
 }
+
+export const LoadRoute = function(route){
+    return {
+        type: 'ROUTER',
+        payload: route
+    };
+}

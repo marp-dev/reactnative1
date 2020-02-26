@@ -41,8 +41,19 @@ const lastUpdate = (state = false, action) => {
       return state;
   }
 };
+const defaultRoute = {
+  id: 'HOME',
+  params: {}
+};
+const router = (state = defaultRoute, action) => {
+  if(action.type == 'ROUTER' && action.payload.id != state.id){
+    return action.payload;
+  }
+  return state;
+};
 
 export default combineReducers({
     list: todos,
-    lastUpdate 
+    lastUpdate,
+    currentRoute: router
 })
