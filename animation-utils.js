@@ -12,7 +12,7 @@ export default () => {
                     {
                         translateX: position.interpolate({
                             inputRange: [-100, 0, 100],
-                            outputRange: ['-100%', '0%', '100%']
+                            outputRange: [-100, 0, 100]
                         })
                     }
                 ],
