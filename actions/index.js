@@ -3,7 +3,7 @@ import _ from 'lodash';
 import {generateID, timestamp} from '../utils';
 
 const ajax = axios.create({
-    baseURL: 'http://127.0.0.1:3000/'
+    baseURL: 'http://192.168.1.104:3000/'
 });
 
 export const AddTodoItem = function(name){
