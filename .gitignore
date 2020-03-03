@@ -15,3 +15,6 @@ web-report/
 
 #ignoring database file
 db.json
+
+#ignoring package-lock
+package-lock.json
