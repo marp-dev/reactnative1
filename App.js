@@ -1,6 +1,5 @@
 
 import React from 'react';
-import {View} from 'react-native';
 import {Provider} from 'react-redux';
 import {Container,Text} from 'native-base';
 import Header from './header';
@@ -17,28 +16,27 @@ const App = (props) => {
   const content = () => {
     if(serverLoaded && fontLoaded){
       return (
-        <Container>
-          <Header/>
-          <Route id="HOME">
-            <Container style={styles.container}>
+        <>
+          <Container style={styles.body}>
+            <Route id="HOME">
               <AddTodo/>
               <TodoList/>
-            </Container>
-          </Route>
-          <Route id="ARCHIVE">
-            <Text>Archive</Text>
-          </Route>
-        </Container>
+            </Route>
+            <Route id="ARCHIVE">
+              <Text>Archive</Text>
+            </Route>
+          </Container>
+          <Header/>
+        </>
       );
-    }else{
-      return ( <AppLoading/> );
     }
+    return <AppLoading/>;
   };
 
   return (
-    <View>
+    <>
       {content()}
-    </View>
+    </>
   );
 }
 

@@ -1,33 +1,44 @@
 import { Platform, StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    container: {
-      zIndex: -1,
-      flex: 1,
+    body: {
+      //please keep comment bellow
+      //...Platform.select({web: { zIndex:1 }, android: { zIndex:1,elevation:1 }}),position: 'absolute',top:0, left:0,width:'100%',
       backgroundColor: '#fff',
       alignItems: 'center',
-      paddingTop: 20,
+      paddingTop: 70,
       paddingBottom: 10,
       paddingLeft: '5%',
       paddingRight: '5%'
     },
-    relative: {
-      position: 'relative'
+    headerContainer: {
+      ...Platform.select({
+        android: { zIndex: 10,elevation: 10 },
+        web: {zIndex: 10}
+      }),
+      width:'100%',
+      maxHeight:50,
+      position: 'absolute',
+      top:0,
+      left:0
     },
-    dFlex: {
-      display: 'flex'
+    header: {
+      height:50,
+      paddingLeft: 10,
+      paddingRight: 10,
     },
     menu: {
-      display: 'none',
       position: 'absolute',
-      top: '100%',
-      right: 0,
-      width: '100%',
-      minHeight: 50,
-      backgroundColor: 'white'
-    },
-    menuZIndex: {
-      zIndex: 10
+      top:50,
+      right:0,
+      width:'100%',
+      paddingLeft:0,
+      paddingRight:0,
+      backgroundColor: 'transparent',
+      ...Platform.select({
+        web: {zIndex: 10},
+        android: {zIndex: 10,elevation: 10},
+      })
     },
     fieldset: {
       flexDirection: 'row',
