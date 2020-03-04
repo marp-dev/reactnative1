@@ -8,7 +8,8 @@ export default (props) => {
     const rendering = () => {
         if(props.id == currentRoute.id){
             return props.children;
-        }    
+        }
+        return;    
     };
 
     return (
