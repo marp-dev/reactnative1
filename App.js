@@ -13,29 +13,20 @@ import { AppLoading } from 'expo';
 const App = (props) => {
   const {serverLoaded, fontLoaded} = load();
 
-  const content = () => {
-    if(serverLoaded && fontLoaded){
-      return (
-        <>
-          <Container style={styles.body}>
-            <Route id="HOME">
-              <AddTodo/>
-              <TodoList/>
-            </Route>
-            <Route id="ARCHIVE">
-              <Text>Archive</Text>
-            </Route>
-          </Container>
-          <Header/>
-        </>
-      );
-    }
-    return <AppLoading/>;
-  };
+  if(!serverLoaded || !fontLoaded) return <AppLoading/>;
 
   return (
     <>
-      {content()}
+      <Container style={styles.body}>
+        <Route id="HOME">
+          <AddTodo/>
+          <TodoList/>
+        </Route>
+        <Route id="ARCHIVE">
+          <Text>Archive</Text>
+        </Route>
+      </Container>
+      <Header/>
     </>
   );
 }
