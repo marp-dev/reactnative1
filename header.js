@@ -21,7 +21,7 @@ export default (props) => {
           </Right>
         </Header>
       </Container>
-      <Menu visible={menuVisible}/>
+      <Menu visible={menuVisible} onClose={() => setMenuVisible(false)}/>
     </>
   );
 }

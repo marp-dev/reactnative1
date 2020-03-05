@@ -13,8 +13,8 @@ export default StyleSheet.create({
     },
     headerContainer: {
       ...Platform.select({
-        android: { zIndex: 10,elevation: 10 },
-        web: {zIndex: 10}
+        android: { zIndex: 11,elevation: 11 },
+        web: {zIndex: 11}
       }),
       width:'100%',
       maxHeight:50,
@@ -29,12 +29,14 @@ export default StyleSheet.create({
     },
     menu: {
       position: 'absolute',
-      top:50,
+      top:0,
       right:0,
+      paddingTop:50,
       width:'100%',
+      height:'100%',
       paddingLeft:0,
       paddingRight:0,
-      backgroundColor: 'transparent',
+      backgroundColor: '#00000033',
       ...Platform.select({
         web: {zIndex: 10},
         android: {zIndex: 10,elevation: 10},
