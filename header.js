@@ -15,7 +15,7 @@ export default (props) => {
             <Title>To-Dos</Title>
           </Body>
           <Right>
-            <Button transparent onPress={() => {setMenuVisible(!menuVisible);console.log('showing menu');}}>
+            <Button transparent onPress={() => setMenuVisible(!menuVisible)}>
               <Icon name='more' />
             </Button>
           </Right>
