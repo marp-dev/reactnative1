@@ -1,3 +1,3 @@
 #!/usr/bin/bash
-screen -dm -S react expo start
-screen -dm -S server json-server --host 0.0.0.0 --watch ./db.json
+tmux new -d -s react expo start
+tmux new -d -s server json-server --host 0.0.0.0 --watch ./db.json
