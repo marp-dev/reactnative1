@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {Provider} from 'react-redux';
+import {Provider, useSelector} from 'react-redux';
 import {Container,Text} from 'native-base';
 import Header from './header';
 import AddTodo from './AddTodo';
@@ -9,11 +9,19 @@ import styles from './Styling';
 import {store, load} from './Storage';
 import Route from './Router';
 import { AppLoading } from 'expo';
+import Notifier from './Notifier';
 
 const App = (props) => {
   const {serverLoaded, fontLoaded} = load();
 
-  if(!serverLoaded || !fontLoaded) return <AppLoading/>;
+  if(serverLoaded===false || fontLoaded===false){
+    return (
+      <>
+        <AppLoading/>
+        <Notifier/>
+      </>
+    );
+  }
 
   return (
     <>
@@ -27,6 +35,7 @@ const App = (props) => {
         </Route>
       </Container>
       <Header/>
+      <Notifier/>
     </>
   );
 }

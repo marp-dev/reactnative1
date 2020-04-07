@@ -52,8 +52,22 @@ const router = (state = defaultRoute, action) => {
   return state;
 };
 
+const handleErrors = (state = [], action) => {
+  if(action.type == 'ERROR'){
+    return [
+      ...state,
+      {
+        timestamp: timestamp(),
+        ...action.payload,
+      }
+    ];
+  }
+  return state;
+}
+
 export default combineReducers({
     list: todos,
     lastUpdate,
-    currentRoute: router
+    currentRoute: router,
+    errors: handleErrors
 })

@@ -28,7 +28,7 @@ export const AddTodoItem = function(name){
             .catch((error) => {
                 dispatch({
                     type: 'ERROR',
-                    payload: error
+                    payload: {action_name: 'AddTodoItem', error:error}
                 });
             });
     };
@@ -49,7 +49,10 @@ export const ChangeStatus = function(id){
         update(
             {...todo, ...{done:!todo.done} },
             (res)=>dispatch({type:'CHANGE_STATUS',payload: id}),
-            (error)=>dispatch({type: 'ERROR', payload: error})
+            (error)=>dispatch({
+                type: 'ERROR',
+                payload: {action_name: 'ChangeStatus', error:error}
+            })
         );
     };
 }
@@ -60,18 +63,20 @@ export const UpdateTodo = function({id, name, archived}){
         update(
             {...todo, ...{name, archived} },
             (res)=>{
-            dispatch({
-                type: 'UPDATE_TODO',
-                payload: {
-                    id, name, archived
-                }
-            });
-        }, (error)=>{
-            dispatch({
-                type: 'ERROR',
-                payload: error
-            });    
-        });
+                dispatch({
+                    type: 'UPDATE_TODO',
+                    payload: {
+                        id, name, archived
+                    }
+                });
+            },
+            (error)=>{
+                dispatch({
+                    type: 'ERROR',
+                    payload: {action_name: 'UpdateTodo', error:error}
+                });
+            }
+        );
     };
 }
 
@@ -88,7 +93,7 @@ export const DeleteTodo = function(id){
             .catch((error) => {
                 dispatch({
                     type: 'ERROR',
-                    payload: error
+                    payload: {action_name: 'DeleteTodo', error:error}
                 });
             });
     };
@@ -114,7 +119,11 @@ export const LoadFromServer = function(callback){
         }).catch((error) => {
             dispatch({
                 type: 'ERROR',
-                payload: error
+                payload: {
+                    action_name: 'LoadFromServer',
+                    description: 'There was an error while getting the data from the server',
+                    error:error
+                }
             });
         });
     };
