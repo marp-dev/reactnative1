@@ -135,3 +135,50 @@ export const LoadRoute = function(route){
         payload: route
     };
 }
+
+export const Error = function({title, description}, error){
+    return {
+        type: 'ERROR',
+        payload: {
+            timestamp: timestamp(),
+            action_name: 'Error',
+            title: title,
+            description: `There was an error. ${description}`,
+            error:error
+        }
+    };
+}
+
+export const CreateNotification = function({timestamp, title, description, type}){
+    let notificationType, notificationTimestamp;
+    switch(type){
+        case 'danger':
+            notificationType = 'danger';
+            break;
+        case 'warning':
+            notificationType = 'warning';
+            break;
+        case 'notice':
+        default:
+            notificationType = 'notice';
+    }
+    notificationTimestamp = timestamp || timestamp();
+    return {
+        type: 'CREATE_NOTIFICATION',
+        payload: {
+            timestamp: notificationTimestamp,
+            title,
+            description,
+            type, notificationType
+        }
+    };
+}
+
+export const CloseNotification = function(timestamp){
+    return {
+        type: 'REMOVE_NOTIFICATION',
+        payload: {
+            timestamp
+        }
+    }
+}

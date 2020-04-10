@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
-import { Platform, StyleSheet, View, Text } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import { Platform, StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
+import {CloseNotification} from './actions';
 import _ from 'lodash';
 
 const style = StyleSheet.create({
@@ -44,30 +45,27 @@ const style = StyleSheet.create({
 });
 
 const NotifierList = () => {
-    const errors = useSelector((state) => state.errors);
-    const [notifications, setNotifications] = useState([]);
-    const [timers, setTimers] = useState([]);
-    const notificationTime = 10000;
-
-    useEffect(() => {
-        console.log(errors);
-        _.each(errors, (error)=>{
-            setNotifications([...notifications, <Notification type="danger" title={error.action_name} description={error.error.message}/>]);
-            const timeout = setTimeout(() => {
-                setNotifications(_.drop(notifications,1));
-            }, notificationTime);
-            setTimers([...timers, timeout]);
-        });
-    }, [errors]);
+    const notifications = useSelector((state) => state.notifications);
+    const dispatch = useDispatch();
+    const list =    _.map(notifications, 
+                        (notification) =>
+                            <Notification
+                            timestamp={notification.timestamp}
+                            key={notification.timestamp}
+                            type={notification.type}
+                            title={notification.title}
+                            description={notification.description}
+                            onClose={() => { dispatch(CloseNotification(notification.timestamp)); }}/>
+                    );
   
     return (
         <View style={style.notifier}>
-            {notifications}
+            {list}
         </View>
     );
 };
 
-const Notification = ({type, title, description}) => {
+const Notification = ({timestamp, type, title, description, onClose}) => {
     let styleType;
     switch(type){
         case 'danger':
@@ -77,14 +75,32 @@ const Notification = ({type, title, description}) => {
             styleType = style.warning;
             break;
         case 'notice':
+        default:
             styleType = style.notice;
-            break;
     }
+
+    const notificationTime = 10000;
+    const [timer, setTimer] = useState(null);
+    useEffect(() => {
+        setTimer(setTimeout(function(){
+            //call fading animation an then...
+            onClose();
+        }, notificationTime));
+    }, []);
+
+    const onClick = () => {
+        clearTimeout(timer);
+        //call fading animation an then...
+        onClose();
+    };
+
     return (
-        <View style={[style.notification, styleType]}>
-            <Text style={style.notificationTitle}>{title}</Text>
-            <Text style={style.notificationDescription}>{description}</Text>
-        </View>
+        <TouchableWithoutFeedback onPress={onClick}>
+            <View style={[style.notification, styleType]}>
+                <Text style={style.notificationTitle}>{title}</Text>
+                <Text style={style.notificationDescription}>{description}</Text>
+            </View>
+        </TouchableWithoutFeedback>
     );
 };
 

@@ -57,17 +57,44 @@ const handleErrors = (state = [], action) => {
     return [
       ...state,
       {
-        timestamp: timestamp(),
+        timestamp: action.payload.timestamp || timestamp(),
         ...action.payload,
       }
     ];
   }
   return state;
-}
+};
+
+const notifications = (state = [], action) => {
+  if(action.type == 'CREATE_NOTIFICATION'){
+    return [
+      ...state,
+      {
+        ...action.payload
+      }
+    ];
+  }
+  if(action.type == 'REMOVE_NOTIFICATION'){
+    return _.filter(state, (item) => item.timestamp != action.payload.timestamp);    
+  }
+  if(action.type == 'ERROR'){
+    return [
+      ...state,
+      {
+        timestamp: action.payload.timestamp || timestamp(),
+        title: action.payload.title || `ERROR`,
+        description: action.payload.description || `there was an error ${action.payload.error.message}`,
+        type: 'danger'
+      }
+    ]
+  }
+  return state;
+};
 
 export default combineReducers({
     list: todos,
     lastUpdate,
     currentRoute: router,
-    errors: handleErrors
+    errors: handleErrors,
+    notifications: notifications
 })
