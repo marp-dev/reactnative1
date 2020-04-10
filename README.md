@@ -15,7 +15,7 @@ At the time being
 - clone the project
 - `npm install`
 
-then eather run this;
+then eather run this (each on different terminals);
 - `npm start` or `expo start`
 - `json-server --host 0.0.0.0 --watch ./db.json`
 
