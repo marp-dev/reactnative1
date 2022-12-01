@@ -18,3 +18,6 @@ db.json
 
 #ignoring package-lock
 package-lock.json
+*-lock.json
+*-lock.yaml
+
