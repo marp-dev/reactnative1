@@ -1,11 +1,10 @@
 {
   "expo": {
-    "name": "Blank Template",
+    "name": "Todo List",
     "slug": "todolist",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
-      "ios",
       "android",
       "web"
     ],
@@ -25,9 +24,6 @@
     },
     "assetBundlePatterns": [
       "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    }
+    ]
   }
 }
