@@ -9,7 +9,9 @@ export default StyleSheet.create({
       paddingTop: 70,
       paddingBottom: 10,
       paddingLeft: '5%',
-      paddingRight: '5%'
+      paddingRight: '5%',
+      width:'100%',
+      maxWidth:'100%'
     },
     headerContainer: {
       ...Platform.select({
@@ -17,6 +19,7 @@ export default StyleSheet.create({
         web: {zIndex: 11}
       }),
       width:'100%',
+      maxWidth: '100%',
       maxHeight:50,
       position: 'absolute',
       top:0,
@@ -24,8 +27,15 @@ export default StyleSheet.create({
     },
     header: {
       height:50,
+      width:'100%',
+      maxWidth: '100%',
       paddingLeft: 10,
-      paddingRight: 10,
+      paddingRight: 10
+    },
+    menuIcon: {
+      stroke: '#FFF',
+      //fill: '#FFF',
+      color: '#FFF'
     },
     menu: {
       position: 'absolute',
