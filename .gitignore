@@ -21,3 +21,8 @@ package-lock.json
 *-lock.json
 *-lock.yaml
 
+.gradle/*
+.gradle/**/*
+.expo-shared/*
+.expo-shared/**/*
+
