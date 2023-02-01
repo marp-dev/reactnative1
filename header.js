@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Header, Left, Body, Right, Title, Button, Icon } from 'native-base';
+import { Container, Flex, Heading, Button, Icon } from 'native-base';
 import Menu from './menu';
 import styles from './Styling';
 
@@ -9,17 +9,12 @@ export default (props) => {
   return (
     <>
       <Container style={styles.headerContainer}>
-        <Header style={styles.header}>
-          <Left/>
-          <Body>
-            <Title>To-Dos</Title>
-          </Body>
-          <Right>
+        <Flex direction="row" style={styles.header}>
+            <Heading>To-Dos</Heading>
             <Button transparent onPress={() => setMenuVisible(!menuVisible)}>
               <Icon name='more' />
             </Button>
-          </Right>
-        </Header>
+        </Flex>
       </Container>
       <Menu visible={menuVisible} onClose={() => setMenuVisible(false)}/>
     </>

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import {Provider, useSelector} from 'react-redux';
-import {Container,Text} from 'native-base';
+import {Container,Text, NativeBaseProvider} from 'native-base';
 import Header from './header';
 import AddTodo from './AddTodo';
 import TodoList from './TodoList';
@@ -11,20 +11,20 @@ import Route from './Router';
 import { AppLoading } from 'expo';
 import Notifier from './Notifier';
 
-const App = (props) => {
+const Main = (props) => {
   const {serverLoaded, fontLoaded} = load();
 
   if(serverLoaded===false || fontLoaded===false){
     return (
-      <>
+      <NativeBaseProvider>
         <AppLoading/>
         <Notifier/>
-      </>
+      </NativeBaseProvider>
     );
   }
 
   return (
-    <>
+    <NativeBaseProvider>
       <Container style={styles.body}>
         <Route id="HOME">
           <AddTodo/>
@@ -36,14 +36,14 @@ const App = (props) => {
       </Container>
       <Header/>
       <Notifier/>
-    </>
+    </NativeBaseProvider>
   );
 }
 
-export default () => {
+export default function App(){
   return (
     <Provider store={store}>
-      <App/>
+      <Main/>
     </Provider>
   );
 }

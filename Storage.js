@@ -12,20 +12,16 @@ export const store = createStore(reducers, applyMiddleware(thunk))
 
 export const load = () => {
     const [serverLoaded, setServerLoaded] = useState(false);
-    const [fontLoaded, setFontLoaded] = useState(false);
+    const [fontLoaded, setFontLoaded] = useState(true);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(LoadFromServer(() => setServerLoaded(true)));
         (async () => {
-            //"a try? why?" => https://github.com/expo/expo/issues/4217
-            try{
+
             await Font.loadAsync({
-                'Roboto': require('native-base/Fonts/Roboto.ttf'),
-                'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
                 ...Ionicons.font,
             });
-            }catch(e){}
             setFontLoaded(true);
         })();
     }, []);
