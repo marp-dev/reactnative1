@@ -33,6 +33,9 @@ const Main = (props) => {
         <Route id="ARCHIVE">
           <Text>Archive</Text>
         </Route>
+        <Route id="SETTINGS">
+          <Text>Settings</Text>
+        </Route>
       </Container>
       <Header/>
       <Notifier/>

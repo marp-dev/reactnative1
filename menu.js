@@ -27,7 +27,7 @@ export default (props) => {
                     <Button borderRadius="0" full onPress={() => changeRoute({id:'ARCHIVE'})}>
                         <Text color="white">Archive</Text>
                     </Button>
-                    <Button borderRadius="0" full>
+                    <Button borderRadius="0" full onPress={() => changeRoute({id:'SETTINGS'})}>
                         <Text color="white">Settings</Text>
                     </Button>
                 </View>
