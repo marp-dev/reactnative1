@@ -1,15 +1,16 @@
 
-import React from 'react';
-import {Provider, useSelector} from 'react-redux';
-import {Container,Text, NativeBaseProvider} from 'native-base';
-import Header from './header';
-import AddTodo from './AddTodo';
-import TodoList from './TodoList';
-import styles from './Styling';
-import {store, load} from './Storage';
-import Route from './Router';
-import { AppLoading } from 'expo';
-import Notifier from './Notifier';
+import React from 'react'
+import {Provider, useSelector} from 'react-redux'
+import {Container,Text, NativeBaseProvider} from 'native-base'
+import Header from './header'
+import AddTodo from './AddTodo'
+import TodoList from './TodoList'
+import DataSourceForm from './dataSourceForm'
+import styles from './Styling'
+import {store, load} from './Storage'
+import Route from './Router'
+import { AppLoading } from 'expo'
+import Notifier from './Notifier'
 
 const Main = (props) => {
   const {serverLoaded, fontLoaded} = load();
@@ -34,7 +35,7 @@ const Main = (props) => {
           <Text>Archive</Text>
         </Route>
         <Route id="SETTINGS">
-          <Text>Settings</Text>
+          <DataSourceForm/>
         </Route>
       </Container>
       <Header/>
