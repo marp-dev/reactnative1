@@ -21,14 +21,14 @@ export default (props) => {
         <TouchableWithoutFeedback onPress={closeMenu}>
             <Animated.View style={styles.menu}>
                 <View style={{backgroundColor:'white'}}>
-                    <Button full onPress={() => changeRoute({id:'HOME'})}>
-                        <Text>To-Dos</Text>
+                    <Button borderRadius="0" full onPress={() => changeRoute({id:'HOME'})}>
+                        <Text color="white">To-Dos</Text>
                     </Button>
-                    <Button full onPress={() => changeRoute({id:'ARCHIVE'})}>
-                        <Text>Archive</Text>
+                    <Button borderRadius="0" full onPress={() => changeRoute({id:'ARCHIVE'})}>
+                        <Text color="white">Archive</Text>
                     </Button>
-                    <Button full>
-                        <Text>Settings</Text>
+                    <Button borderRadius="0" full>
+                        <Text color="white">Settings</Text>
                     </Button>
                 </View>
             </Animated.View>

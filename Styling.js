@@ -30,7 +30,8 @@ export default StyleSheet.create({
       width:'100%',
       maxWidth: '100%',
       paddingLeft: 10,
-      paddingRight: 10
+      paddingRight: 10,
+      backgroundColor: "rgb(8, 145, 178)"
     },
     menuIcon: {
       stroke: '#FFF',

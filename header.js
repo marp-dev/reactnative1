@@ -9,8 +9,8 @@ export default (props) => {
   return (
     <>
       <Container style={styles.headerContainer}>
-        <Flex direction="row" justifyContent="space-between" style={styles.header}>
-          <Heading>To-Dos</Heading>
+        <Flex direction="row" justifyContent="space-between" alignItems="center" style={styles.header}>
+          <Heading color="white">To-Dos</Heading>
           <Button transparent onPress={() => setMenuVisible(!menuVisible)}>
             <HamburgerIcon style={styles.menuIcon} />
           </Button>
