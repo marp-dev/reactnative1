@@ -17,14 +17,13 @@ export const load = () => {
 
     useEffect(() => {
         dispatch(LoadFromServer(() => setServerLoaded(true)));
-        (async () => {
-
-            await Font.loadAsync({
-                ...Ionicons.font,
-            });
-            setFontLoaded(true);
-        })();
     }, []);
+
+    useEffect(async () => {
+        await Font.loadAsync({ ...Ionicons.font })
+        setFontLoaded(true)
+    }, []);
+
     return {serverLoaded, fontLoaded};
 }
 
