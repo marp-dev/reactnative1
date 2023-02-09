@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import _ from 'lodash';
 import {generateID, timestamp} from '../utils';
@@ -127,6 +128,63 @@ export const LoadFromServer = function(callback){
             });
         });
     };
+}
+
+export const LoadDataSource = function(){
+    return async (dispatch, getState) => {
+        try {
+            const source = await AsyncStorage.getItem('@data_source')
+                dispatch({
+                    type: 'DATA_SOURCE',
+                    payload: source
+                })
+        }catch(error){
+            dispatch({
+                type: 'ERROR',
+                payload: {
+                    timestamp: timestamp(),
+                    action_name: 'LoadDataSource',
+                    description: `There was an error while loading data_source with AsyncStorage`,
+                    error:error
+                }
+            })
+        }
+    }
+}
+
+export const SetDataSource = function(new_data_source){
+    return async (dispatch, getState) => {
+
+        try {
+            if(new_data_source != 'server' && new_data_source != 'device'){
+                dispatch({
+                    type: 'ERROR',
+                    payload: {
+                        timestamp: timestamp(),
+                        action_name: 'SetDataSource',
+                        description: `data_source is eather 'server' or 'device', not '${new_data_source}'`,
+                    }
+                })
+            }
+    
+            await AsyncStorage.setItem('@data_source', new_data_source)
+            dispatch({
+                type: 'DATA_SOURCE',
+                payload: new_data_source
+            })
+        }catch(error){
+            dispatch({
+                type: 'ERROR',
+                payload: {
+                    timestamp: timestamp(),
+                    action_name: 'SetDataSource',
+                    description: `There was an error while setting data_source with AsyncStorage`,
+                    error:error
+                }
+            })
+        }
+    
+    }
 }
 
 export const LoadRoute = function(route){

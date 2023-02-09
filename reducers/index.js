@@ -90,11 +90,23 @@ const notifications = (state = [], action) => {
   }
   return state;
 };
+const ALLOWED_DATA_SOURCES = ['server', 'device']
+const DEFAULT_DATA_SOURCE = 'server'
+const data_source = (state = DEFAULT_DATA_SOURCE, action) => {
+  if(
+    action.type == 'DATA_SOURCE' &&
+    ALLOWED_DATA_SOURCES.includes(action.payload)
+    ){
+    return action.payload
+  }
+  return state
+}
 
 export default combineReducers({
     list: todos,
     lastUpdate,
     currentRoute: router,
     errors: handleErrors,
-    notifications: notifications
+    notifications: notifications,
+    data_source: data_source
 })
