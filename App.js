@@ -9,7 +9,6 @@ import DataSourceForm from './dataSourceForm'
 import styles from './Styling'
 import {store, load} from './Storage'
 import Route from './Router'
-import { AppLoading } from 'expo'
 import Notifier from './Notifier'
 
 const Main = (props) => {
@@ -18,7 +17,7 @@ const Main = (props) => {
   if(serverLoaded===false || fontLoaded===false){
     return (
       <NativeBaseProvider>
-        <AppLoading/>
+        <Text>Loading...</Text>
         <Notifier/>
       </NativeBaseProvider>
     );
