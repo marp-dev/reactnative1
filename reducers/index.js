@@ -43,6 +43,8 @@ const lastUpdate = (state = false, action) => {
 };
 const defaultRoute = {
   id: 'HOME',
+  label: 'To-Dos',
+  order: 0,
   params: {}
 };
 const router = (state = defaultRoute, action) => {
@@ -51,6 +53,18 @@ const router = (state = defaultRoute, action) => {
   }
   return state;
 };
+const routes = (state = [defaultRoute], action) => {
+  if(action.type == 'ADD_ROUTE'){
+    return [
+      ..._.filter(state, (route) => route.id != action.payload.id),
+      action.payload
+    ];
+  }
+  if(action.type == 'REMOVE_ROUTE'){
+    return _.filter(state, (route) => route.id != action.payload.id);
+  }
+  return state;
+}
 
 const handleErrors = (state = [], action) => {
   if(action.type == 'ERROR'){
@@ -106,6 +120,7 @@ export default combineReducers({
     list: todos,
     lastUpdate,
     currentRoute: router,
+    routes: routes,
     errors: handleErrors,
     notifications: notifications,
     data_source: data_source

@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, TouchableWithoutFeedback, Animated } from 'react-native';
 import { Button, Text } from 'native-base';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { LoadRoute } from './actions';
 import styles from './Styling';
 
 export default (props) => {
+    const routes = useSelector((state) => state.routes)
     const dispatch = useDispatch();
 
     const closeMenu = () => {
@@ -15,21 +16,28 @@ export default (props) => {
         if(route) dispatch(LoadRoute(route));
         closeMenu();
     };
+    const menuSorting = (a, b) => {
+        if(a.order < b.order) return -1;
+        if(a.order > b.order) return 1;
+        return 0;
+    };
 
     if(!props.visible) return <></>;
     return (
         <TouchableWithoutFeedback onPress={closeMenu}>
             <Animated.View style={styles.menu}>
                 <View style={{backgroundColor:'white'}}>
-                    <Button borderRadius="0" full onPress={() => changeRoute({id:'HOME'})}>
-                        <Text color="white">To-Dos</Text>
-                    </Button>
-                    <Button borderRadius="0" full onPress={() => changeRoute({id:'ARCHIVE'})}>
-                        <Text color="white">Archive</Text>
-                    </Button>
-                    <Button borderRadius="0" full onPress={() => changeRoute({id:'SETTINGS'})}>
-                        <Text color="white">Settings</Text>
-                    </Button>
+                    {
+                        routes
+                        .sort(menuSorting)
+                        .map((route) => {
+                            return (
+                                <Button key={route.id} borderRadius="0" full onPress={() => changeRoute({id:route.id})}>
+                                    <Text color="white">{route.label}</Text>
+                                </Button>
+                            )
+                        })
+                    }
                 </View>
             </Animated.View>
         </TouchableWithoutFeedback>

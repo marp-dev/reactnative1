@@ -17,7 +17,15 @@ const Main = (props) => {
   if(serverLoaded===false || fontLoaded===false){
     return (
       <NativeBaseProvider>
-        <Text>Loading...</Text>
+        <Container style={styles.body}>
+          <Route id="HOME" key="HOME" order="1" label="To-Dos">
+            <Text>Loading...</Text>
+          </Route>
+          <Route id="SETTINGS" key="SETTINGS" order="3" label="Settings">
+            <DataSourceForm/>
+          </Route>
+        </Container>
+        <Header/>
         <Notifier/>
       </NativeBaseProvider>
     );
@@ -26,14 +34,14 @@ const Main = (props) => {
   return (
     <NativeBaseProvider>
       <Container style={styles.body}>
-        <Route id="HOME">
+        <Route id="HOME" key="HOME" order="1" label="To-Dos">
           <AddTodo/>
           <TodoList/>
         </Route>
-        <Route id="ARCHIVE">
+        <Route id="ARCHIVE" key="ARCHIVE" order="2" label="Archive">
           <Text>Archive</Text>
         </Route>
-        <Route id="SETTINGS">
+        <Route id="SETTINGS" key="SETTINGS" order="3" label="Settings">
           <DataSourceForm/>
         </Route>
       </Container>

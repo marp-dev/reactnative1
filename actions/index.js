@@ -194,6 +194,20 @@ export const LoadRoute = function(route){
     };
 }
 
+export const AddRoute = function(route){
+    return {
+        type: 'ADD_ROUTE',
+        payload: route
+    };
+}
+
+export const RemoveRoute = function(route_id){
+    return {
+        type: 'REMOVE_ROUTE',
+        payload: route_id
+    };
+}
+
 export const Error = function({title, description}, error){
     return {
         type: 'ERROR',
