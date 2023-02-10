@@ -57,7 +57,12 @@ export default StyleSheet.create({
       flexDirection: 'row',
       width:'100%',
       //justifyContent:'stretch',
-      alignItems:'center'
+      alignItems:'center',
+      marginBottom: '15px'
+    },
+    field: {
+      width: '100%',
+      minHeight: '35px'
     },
     input: {
       paddingLeft:5,
@@ -124,6 +129,9 @@ export default StyleSheet.create({
         android: { },
         web: { userSelect: 'none' }
       })
+    },
+    container: {
+      width: '100%'
     }
   });
   
