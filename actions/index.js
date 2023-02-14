@@ -107,7 +107,7 @@ export const Load = function(data){
     }
 }
 
-export const LoadFromServer = function(callback){
+export const LoadFromServer = function(){
     return (dispatch, getState) => {
         ajax
         .get('/todos')
@@ -116,7 +116,6 @@ export const LoadFromServer = function(callback){
                 type: 'LOAD',
                 payload: response.data
             });
-            callback(true);
         }).catch((error) => {
             dispatch({
                 type: 'ERROR',
