@@ -10,7 +10,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 export const store = createStore(reducers, applyMiddleware(thunk))
 
-export const load = () => {
+export const useLoadData = () => {
     const [serverLoaded, setServerLoaded] = useState(false);
     const [fontLoaded, setFontLoaded] = useState(true);
     const dispatch = useDispatch();

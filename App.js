@@ -7,12 +7,12 @@ import AddTodo from './AddTodo'
 import TodoList from './TodoList'
 import DataSourceForm from './dataSourceForm'
 import styles from './Styling'
-import {store, load} from './Storage'
+import {store, useLoadData} from './Storage'
 import Route from './Router'
 import Notifier from './Notifier'
 
 const Main = (props) => {
-  const {serverLoaded, fontLoaded} = load();
+  const {serverLoaded, fontLoaded} = useLoadData();
 
   if(serverLoaded===false || fontLoaded===false){
     return (
