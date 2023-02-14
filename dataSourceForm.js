@@ -3,13 +3,15 @@ import { Select } from "native-base"
 import { View, Text, TextInput, Button } from 'react-native'
 import styles from './Styling'
 import { Fieldset } from './Forms'
-import {useDispatch} from 'react-redux'
-import * as Actions from './actions'
+import {useDispatch, useSelector} from 'react-redux'
+import {SetDataSource as _SetDataSource} from './actions'
 
 export default function(props){
 
-    const [dataSource, setDataSource] = useState('')
+    const _data_source = useSelector( (state) => state.data_source )
+    const [dataSource, setDataSource] = useState(_data_source)
     const [serverLocation, setserverLocation] = useState('')
+    const dispatch = useDispatch()
 
     const ServerForm = (props) => {
         if(dataSource != "server"){
@@ -41,7 +43,12 @@ export default function(props){
 
     }
 
-    return <>
+    useEffect(() => {
+        if(_data_source != dataSource) 
+            dispatch(_SetDataSource(dataSource) )
+    }, [dataSource])
+
+    return (<>
         <View style={styles.container}>
 
             <Fieldset>
@@ -55,7 +62,7 @@ export default function(props){
                     accessibilityLabel="Choose data source"
                     placeholder="Choose data source"
                     _selectedItem={{bg: "teal.600"}}
-                    onValueChange={itemValue => setDataSource(itemValue)}>
+                    onValueChange={(itemValue) => setDataSource(itemValue)}>
                     <Select.Item label="Local Server" value="server" />
                     <Select.Item label="Device" value="device" />
                 </Select>
@@ -68,6 +75,6 @@ export default function(props){
             </Fieldset>
 
         </View>
-    </>;
+    </>);
 
 }
