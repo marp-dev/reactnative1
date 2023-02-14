@@ -116,6 +116,11 @@ const data_source = (state = DEFAULT_DATA_SOURCE, action) => {
   return state
 }
 
+const data_loaded = (state = false, action) => {
+  if(action.type == 'LOAD') return true
+  return state
+}
+
 export default combineReducers({
     list: todos,
     lastUpdate,
@@ -123,5 +128,6 @@ export default combineReducers({
     routes: routes,
     errors: handleErrors,
     notifications: notifications,
-    data_source: data_source
+    data_source: data_source,
+    data_loaded: data_loaded
 })
