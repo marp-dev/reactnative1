@@ -49,7 +49,7 @@ const defaultRoute = {
 };
 const router = (state = defaultRoute, action) => {
   if(action.type == 'ROUTER' && action.payload.id != state.id){
-    return action.payload;
+    return _.cloneDeep(action.payload);
   }
   return state;
 };
@@ -111,7 +111,7 @@ const data_source = (state = DEFAULT_DATA_SOURCE, action) => {
     action.type == 'DATA_SOURCE' &&
     ALLOWED_DATA_SOURCES.includes(action.payload)
     ){
-    return action.payload
+    return _.cloneDeep(action.payload)
   }
   return state
 }
