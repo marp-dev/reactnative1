@@ -1,6 +1,5 @@
-
 import React from 'react'
-import {Provider, useSelector} from 'react-redux'
+import {Provider} from 'react-redux'
 import {Container,Text, NativeBaseProvider} from 'native-base'
 import Header from './header'
 import AddTodo from './AddTodo'
