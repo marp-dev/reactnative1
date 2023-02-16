@@ -12,9 +12,9 @@ import Route from './Router'
 import Notifier from './Notifier'
 
 const Main = (props) => {
-  const {serverLoaded, fontLoaded} = useLoadData();
+  const {data_loaded, fontLoaded} = useLoadData();
 
-  if(serverLoaded===false || fontLoaded===false){
+  if(data_loaded===false || fontLoaded===false){
     return (
       <NativeBaseProvider>
         <Container style={styles.body}>

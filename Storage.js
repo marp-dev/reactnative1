@@ -11,10 +11,10 @@ import { Ionicons } from '@expo/vector-icons'
 export const store = createStore(reducers, applyMiddleware(thunk))
 
 export const useLoadData = () => {
-    const [serverLoaded, setServerLoaded] = useState(false)
-    const [fontLoaded, setFontLoaded] = useState(true)
+    const [fontLoaded, setFontLoaded] = useState(false)
     const dispatch = useDispatch()
     const data_source = useSelector((state) => state.data_source)
+    const data_loaded = useSelector((state) => state.data_loaded)
 
     useEffect(async () => {
         await Font.loadAsync({ ...Ionicons.font })
@@ -27,10 +27,10 @@ export const useLoadData = () => {
 
     useEffect(() => {
         if(data_source == 'server')
-            dispatch(LoadFromServer(() => setServerLoaded(true)))
+            dispatch(LoadFromServer())
     }, [data_source])
 
-    return {serverLoaded, fontLoaded}
+    return {data_loaded, fontLoaded}
 }
 
 export default store
