@@ -222,7 +222,7 @@ export const Error = function({title, description}, error){
     };
 }
 
-export const CreateNotification = function({timestamp, title, description, type}){
+export const CreateNotification = function({title, description, type}){
     let notificationType, notificationTimestamp;
     switch(type){
         case 'danger':
@@ -235,7 +235,7 @@ export const CreateNotification = function({timestamp, title, description, type}
         default:
             notificationType = 'notice';
     }
-    notificationTimestamp = timestamp || timestamp();
+    notificationTimestamp = timestamp();
     return {
         type: 'CREATE_NOTIFICATION',
         payload: {
