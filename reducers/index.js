@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
 import _ from 'lodash';
 import {timestamp} from '../utils';
+import {DEFAULT_DATA_SOURCE, ALLOWED_DATA_SOURCES} from '../global'
 
 
 const todos = (state = [], action) => {
@@ -104,8 +105,7 @@ const notifications = (state = [], action) => {
   }
   return state;
 };
-const ALLOWED_DATA_SOURCES = ['server', 'device']
-const DEFAULT_DATA_SOURCE = 'server'
+
 const data_source = (state = DEFAULT_DATA_SOURCE, action) => {
   if(
     action.type == 'DATA_SOURCE' &&

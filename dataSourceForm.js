@@ -5,6 +5,7 @@ import styles from './Styling'
 import { Fieldset } from './Forms'
 import {useDispatch, useSelector} from 'react-redux'
 import {SetDataSource as _SetDataSource} from './actions'
+import {DATA_SOURCE_URL} from './global'
 
 export default function(props){
 
@@ -24,7 +25,7 @@ export default function(props){
                 onChangeText={setserverLocation}
                 value={serverLocation}
                 style={props.style}
-                placeholder="http://127.0.0.1:3000/"></TextInput>
+                placeholder={`${DATA_SOURCE_URL}`}></TextInput>
         </>
     }
 

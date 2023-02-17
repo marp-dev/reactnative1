@@ -41,6 +41,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/preset-env": "*",
+    "babel-plugin-transform-inline-environment-variables": "^0.4.4",
     "babel-preset-expo": "*"
   },
   "private": true

@@ -2,9 +2,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import _ from 'lodash';
 import {generateID, timestamp} from '../utils';
+import {DATA_SOURCE_URL, ALLOWED_DATA_SOURCES} from '../global'
 
 const ajax = axios.create({
-    baseURL: 'http://127.0.0.1:3000/'
+    baseURL: `${DATA_SOURCE_URL}`
 });
 
 export const AddTodoItem = function(name){
@@ -155,7 +156,7 @@ export const SetDataSource = function(new_data_source){
     return async (dispatch, getState) => {
 
         try {
-            if(new_data_source != 'server' && new_data_source != 'device'){
+            if(ALLOWED_DATA_SOURCES.includes(new_data_source)){
                 dispatch({
                     type: 'ERROR',
                     payload: {
