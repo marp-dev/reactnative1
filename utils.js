@@ -41,3 +41,7 @@ export const generateID = function(prefix = '', length = 10){
 export const timestamp = function(){
     return Math.floor(Date.now() /1000);
 }
+
+export const test_url = function(url){
+    return /^(https|http):\/\/(localhost|[a-z\-\_0-9]+(\.[a-z\-\_0-9]+)+)(:[0-9][0-9][0-9]?[0-9]?)?\/?$/gm.test(url)
+}
