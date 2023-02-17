@@ -26,3 +26,5 @@ package-lock.json
 .expo-shared/*
 .expo-shared/**/*
 
+.envrc
+.env
