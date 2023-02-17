@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import _ from 'lodash';
-import {timestamp} from '../utils';
-import {DEFAULT_DATA_SOURCE, ALLOWED_DATA_SOURCES} from '../global'
+import {timestamp, test_url} from '../utils';
+import {DEFAULT_DATA_SOURCE, ALLOWED_DATA_SOURCES, DATA_SOURCE_URL} from '../global'
 
 
 const todos = (state = [], action) => {
@@ -116,6 +116,13 @@ const data_source = (state = DEFAULT_DATA_SOURCE, action) => {
   return state
 }
 
+const data_source_url = (state = DATA_SOURCE_URL, action) => {
+  if( action.type == 'DATA_SOURCE_URL' && test_url(action.payload) ){
+    return _.cloneDeep(action.payload)
+  }
+  return state
+}
+
 const data_loaded = (state = false, action) => {
   if(action.type == 'LOAD') return true
   return state
@@ -129,5 +136,6 @@ export default combineReducers({
     errors: handleErrors,
     notifications: notifications,
     data_source: data_source,
+    data_source_url: data_source_url,
     data_loaded: data_loaded
 })
