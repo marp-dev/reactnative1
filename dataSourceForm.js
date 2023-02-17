@@ -4,14 +4,15 @@ import { View, Text, TextInput, Button } from 'react-native'
 import styles from './Styling'
 import { Fieldset } from './Forms'
 import {useDispatch, useSelector} from 'react-redux'
-import {SetDataSource as _SetDataSource} from './actions'
-import {DATA_SOURCE_URL} from './global'
+import {SetDataSource as _SetDataSource, SetDataSourceURL, CreateNotification} from './actions'
 
 export default function(props){
 
     const _data_source = useSelector( (state) => state.data_source )
+    const _data_source_url = useSelector( (state) => state.data_source_url )
+    const _errors = useSelector( (state) => state.errors )
     const [dataSource, setDataSource] = useState(_data_source)
-    const [serverLocation, setserverLocation] = useState('')
+    const [sourceLocation, setSourceLocation] = useState(_data_source_url)
     const dispatch = useDispatch()
 
     const ServerForm = (props) => {
@@ -22,10 +23,11 @@ export default function(props){
 
         return <>
             <TextInput
-                onChangeText={setserverLocation}
-                value={serverLocation}
+                onSubmitEditing={setSourceLocation}
+                onBlur={setSourceLocation}
+                onKeyPress={(e) => { if(e.keyCode == 13) setSourceLocation(e.target.value) }}
                 style={props.style}
-                placeholder={`${DATA_SOURCE_URL}`}></TextInput>
+                placeholder={`${sourceLocation}`}></TextInput>
         </>
     }
 
@@ -48,6 +50,19 @@ export default function(props){
         if(_data_source != dataSource) 
             dispatch(_SetDataSource(dataSource) )
     }, [dataSource])
+
+    useEffect(() => {
+        if(sourceLocation == '' || _data_source_url == sourceLocation) return;
+
+        if(_data_source_url != sourceLocation){
+            dispatch(SetDataSourceURL(sourceLocation) )
+        }
+    }, [sourceLocation])
+
+    useEffect(() => {
+        setDataSource(_data_source)
+        setSourceLocation(_data_source_url)
+    }, [_errors])
 
     return (<>
         <View style={styles.container}>
