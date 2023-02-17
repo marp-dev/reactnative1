@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import _ from 'lodash';
-import {generateID, timestamp} from '../utils';
+import {generateID, test_url, timestamp} from '../utils';
 import {DATA_SOURCE_URL, ALLOWED_DATA_SOURCES} from '../global'
 
 const ajax = axios.create({
@@ -134,10 +134,18 @@ export const LoadDataSource = function(){
     return async (dispatch, getState) => {
         try {
             const source = await AsyncStorage.getItem('@data_source')
-                dispatch({
-                    type: 'DATA_SOURCE',
-                    payload: source
-                })
+            const url = await AsyncStorage.getItem('@data_source_url')
+
+            dispatch({
+                type: 'DATA_SOURCE',
+                payload: source
+            })
+
+            dispatch({
+                type: 'DATA_SOURCE_URL',
+                payload: url
+            })
+
         }catch(error){
             dispatch({
                 type: 'ERROR',
@@ -180,6 +188,49 @@ export const SetDataSource = function(new_data_source){
                     timestamp: timestamp(),
                     action_name: 'SetDataSource',
                     description: `There was an error while setting data_source with AsyncStorage`,
+                    error:error
+                }
+            })
+        }
+    
+    }
+}
+
+export const SetDataSourceURL = function(new_source_url = DATA_SOURCE_URL){
+    return async (dispatch, getState) => {
+
+        try {
+            if(!test_url(new_source_url)){
+                dispatch({
+                    type: 'ERROR',
+                    payload: {
+                        timestamp: timestamp(),
+                        action_name: 'SetDataSource',
+                        description: `The url of the data_source is wrong (syntax)`,
+                    }
+                })
+                return;
+            }
+    
+            await AsyncStorage.setItem('@data_source_url', new_source_url)
+
+            dispatch({
+                type: 'DATA_SOURCE_URL',
+                payload: new_source_url
+            })
+            dispatch(CreateNotification({
+                title: 'Data Source URL changed',
+                description: 'The URL of the data source was changed successfully'
+            }))
+
+
+        }catch(error){
+            dispatch({
+                type: 'ERROR',
+                payload: {
+                    timestamp: timestamp(),
+                    action_name: 'SetDataSourceURL',
+                    description: `There was an error while setting data_source_url with AsyncStorage`,
                     error:error
                 }
             })
