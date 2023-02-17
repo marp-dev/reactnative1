@@ -156,7 +156,7 @@ export const SetDataSource = function(new_data_source){
     return async (dispatch, getState) => {
 
         try {
-            if(ALLOWED_DATA_SOURCES.includes(new_data_source)){
+            if(!ALLOWED_DATA_SOURCES.includes(new_data_source)){
                 dispatch({
                     type: 'ERROR',
                     payload: {
@@ -165,6 +165,7 @@ export const SetDataSource = function(new_data_source){
                         description: `data_source is eather 'server' or 'device', not '${new_data_source}'`,
                     }
                 })
+                return;
             }
     
             await AsyncStorage.setItem('@data_source', new_data_source)
