@@ -65,14 +65,12 @@ export default function(props){
                     _selectedItem={{bg: "teal.600"}}
                     onValueChange={(itemValue) => setDataSource(itemValue)}>
                     <Select.Item label="Local Server" value="server" />
-                    <Select.Item label="Device" value="device" />
                 </Select>
             </Fieldset>
 
 
             <Fieldset>
                 <ServerForm style={styles.field}/>
-                <DeviceForm style={styles.field}/>
             </Fieldset>
 
         </View>
