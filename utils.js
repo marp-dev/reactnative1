@@ -43,5 +43,5 @@ export const timestamp = function(){
 }
 
 export const test_url = function(url){
-    return /^(https|http):\/\/(localhost|[a-z\-\_0-9]+(\.[a-z\-\_0-9]+)+)(:[0-9][0-9][0-9]?[0-9]?)?\/?$/gm.test(url)
+    return /^(https|http):\/\/(localhost|[a-z\-\_0-9]+(\.[a-z\-\_0-9]+)+)(:[0-9][0-9][0-9]?[0-9]?[0-9]?)?\/?$/gm.test(url)
 }
