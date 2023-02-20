@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import { Select } from "native-base"
 import { View, Text, TextInput, Button } from 'react-native'
 import styles from './Styling'
 import { Fieldset } from './Forms'
 import {useDispatch, useSelector} from 'react-redux'
-import {SetDataSource as _SetDataSource, SetDataSourceURL, CreateNotification} from './actions'
+import {SetDataSource as _SetDataSource, SetDataSourceURL} from './actions'
 
 export default function(props){
 
@@ -16,6 +16,14 @@ export default function(props){
     const dispatch = useDispatch()
 
     const ServerForm = (props) => {
+        const textRef = useRef('')
+        const handler = (e) => {
+            setSourceLocation(textRef.current.value)
+        }
+        const keyHandler = (e) => {
+            if(e.keyCode == 13) setSourceLocation(textRef.current.value)
+        }
+
         if(dataSource != "server"){
             return <>
             </>
@@ -23,9 +31,10 @@ export default function(props){
 
         return <>
             <TextInput
-                onSubmitEditing={setSourceLocation}
-                onBlur={setSourceLocation}
-                onKeyPress={(e) => { if(e.keyCode == 13) setSourceLocation(e.target.value) }}
+                ref={textRef}
+                onSubmitEditing={handler}
+                onBlur={handler}
+                onKeyPress={keyHandler}
                 style={props.style}
                 placeholder={`${sourceLocation}`}></TextInput>
         </>
