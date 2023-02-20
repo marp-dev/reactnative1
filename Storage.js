@@ -15,6 +15,7 @@ export const useLoadData = () => {
     const dispatch = useDispatch()
     const data_source = useSelector((state) => state.data_source)
     const data_loaded = useSelector((state) => state.data_loaded)
+    const data_source_url = useSelector((state) => state.data_source_url)
 
     useEffect(async () => {
         await Font.loadAsync({ ...Ionicons.font })
@@ -28,7 +29,7 @@ export const useLoadData = () => {
     useEffect(() => {
         if(data_source == 'server')
             dispatch(LoadFromServer())
-    }, [data_source])
+    }, [data_source, data_source_url])
 
     return {data_loaded, fontLoaded}
 }
