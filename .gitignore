@@ -14,7 +14,7 @@ web-report/
 .DS_Store
 
 #ignoring database file
-db.json
+#db.json
 
 #ignoring package-lock
 package-lock.json
