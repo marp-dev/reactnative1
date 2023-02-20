@@ -4,9 +4,15 @@ import _ from 'lodash';
 import {generateID, test_url, timestamp} from '../utils';
 import {DATA_SOURCE_URL, ALLOWED_DATA_SOURCES} from '../global'
 
-const ajax = axios.create({
-    baseURL: `${DATA_SOURCE_URL}`
-});
+let ajax = null
+export const setAjax = async () => {
+    const url = await AsyncStorage.getItem('@data_source_url')
+    ajax = axios.create({
+        baseURL: `${url || DATA_SOURCE_URL}`
+    });
+};
+
+setAjax();
 
 export const AddTodoItem = function(name){
     return (dispatch) => {
@@ -217,6 +223,11 @@ export const SetDataSourceURL = function(new_source_url = DATA_SOURCE_URL){
             dispatch({
                 type: 'DATA_SOURCE_URL',
                 payload: new_source_url
+            })
+            setAjax()
+            dispatch({
+                type: 'ROUTER',
+                payload: {id:'HOME'}
             })
             dispatch(CreateNotification({
                 title: 'Data Source URL changed',
