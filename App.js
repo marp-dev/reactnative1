@@ -37,9 +37,6 @@ const Main = (props) => {
           <AddTodo/>
           <TodoList/>
         </Route>
-        <Route id="ARCHIVE" key="ARCHIVE" order="2" label="Archive">
-          <Text>Archive</Text>
-        </Route>
         <Route id="SETTINGS" key="SETTINGS" order="3" label="Settings">
           <DataSourceForm/>
         </Route>
